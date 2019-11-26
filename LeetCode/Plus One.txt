@@ -1,0 +1,15 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int i = digits.length;
+        digits[i-1] +=1;
+        if(digits[i-1]==10){
+            digits[i-1]=1;
+            int[] temp = new int[digits.length+1];
+            for(int j = 0; j<i;j++){
+                temp[j]=digits[j];
+            }
+            digits=temp;
+        }
+        return digits;
+    }
+}

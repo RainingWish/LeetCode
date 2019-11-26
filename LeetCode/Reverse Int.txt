@@ -1,0 +1,15 @@
+class Solution {
+    public long reverse(int x) {
+        if (x > 2147483647 | x < -2147483647 ) {
+	    	 return 0;
+	     }
+        long R = 0;
+        while(x != 0) {
+            int digit = x % 10;
+            R = R * 10 + digit;
+            x /= 10;
+        }
+        return R;
+    }
+    
+}

@@ -1,0 +1,38 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        //null exceptions
+        if (nums ==null || nums.length ==0 ) return -1;
+        
+        //head and tail
+        int l = 0, r = nums.length-1;
+        
+        while(l <= r) {
+            //mid point
+            int m = l+(r-l)/2;
+            // return value
+            if(nums[m] == target) return m;
+            // find mid point is in which half
+            // if mid value less than tail value mean break point is in front
+            if(nums[m] < nums[r]) {
+                //target between mid point and tail
+                //reset head as current mid point +1
+                if(nums[m]<target && target<=nums[r]) l = m+1;
+                //target between head and mid point
+                //reset tail as current mid point -1
+                else r = m-1;
+            }
+            //mid value larger than tail
+            //break point is in the second half
+            else if(nums[m] > nums[r]) {
+                //if head < target < mid
+                //target is in the first half
+                if(nums[l]<=target && target<nums[m]) r = m-1;
+                //target is in the second half
+                else l = m+1;
+            }
+            //not find
+            else return -1; 
+        }
+        return -1;
+    }
+}

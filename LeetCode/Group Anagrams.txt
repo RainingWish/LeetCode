@@ -1,0 +1,24 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        //check null
+        if (strs.length==0) return new ArrayList();
+        //create hashmap
+        Map<String,List> ans = new HashMap<String,List>();
+        
+        for(String i:strs){
+            //create char array to save current string characters
+            char[] c = i.toCharArray();
+            //sort
+            Arrays.sort(c);
+            //change char array back to string
+            String comp = String.valueOf(c);
+            //check  the compare string apear before or not
+            //if it is new, add a new list to hash map
+            if (!ans.containsKey(comp)) ans.put(comp, new ArrayList());
+            //add string i to arraylist comp
+            ans.get(comp).add(i);
+        }
+        //return a list<list<String>>
+        return new ArrayList(ans.values());
+    }
+}

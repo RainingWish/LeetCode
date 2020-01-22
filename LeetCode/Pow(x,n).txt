@@ -1,0 +1,25 @@
+class Solution {
+    public double myPow(double x, int n) {
+        
+        if (n==0) return 1;
+        
+        //it could be fail for n  = -2147483648 for overflow
+        //so n  = -2147483648 is a specail case
+        if(n<0){    
+            
+            if (n == -2147483648) {
+                x=1/x;
+                x*=x;
+                n=2147483647;
+            }
+            
+            x=1/x;
+            n=-n;       
+        }
+        
+        double ans = myPow(x, n / 2);
+        
+        return (n%2 == 0) ? ans*ans : x*ans*ans;
+        
+    }
+}

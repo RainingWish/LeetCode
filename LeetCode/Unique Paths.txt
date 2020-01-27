@@ -1,0 +1,21 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        
+        //add another coloum and row for the 2D array
+        int[][] p = new int[n+1][m+1];
+        //p[1][0] need to be equals to 1
+        p[1][0]=1;
+        
+        //start with second row, after all the colume inside the row are finish, 
+        // go to next row repeated
+        for (int i=1;i<=n;i++){
+            //start  with second coloum keep adding left to rght
+            for(int j = 1; j<=m; j++){
+                //current value == left + top
+                p[i][j]=p[i-1][j]+p[i][j-1];
+            }
+        }
+        //final total path is the most right bottum one
+        return p[n][m];
+    }
+}

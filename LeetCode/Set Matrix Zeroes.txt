@@ -1,0 +1,30 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        //get row length    
+        int R = matrix.length;
+        //get coloum length
+        int C = matrix[0].length;
+        //store the 0 values row and col with no reapeatable
+        Set<Integer> rows = new HashSet<Integer>();
+        Set<Integer> cols = new HashSet<Integer>();
+
+        // loop to find 0 and store in set
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (matrix[i][j] == 0) {
+                rows.add(i);
+                 cols.add(j);
+                }
+            }
+        }
+
+        // reset the row and coloum inside set to 0
+         for (int i = 0; i < R; i++) {
+             for (int j = 0; j < C; j++) {
+                if (rows.contains(i) || cols.contains(j)) {
+                matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+}

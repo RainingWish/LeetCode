@@ -1,0 +1,23 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        
+        List<List<Integer>> output = new ArrayList();
+        //add null list
+        output.add(new ArrayList<Integer>());
+        
+         for(int i : nums) {
+            //subset temp
+            List<List<Integer>> tmp = new ArrayList<>();
+            //when ever a new number come in form nums[]
+            for(List<Integer> sub : output) {
+                //add this number to all current temp subset's tail
+                List<Integer> a = new ArrayList<>(sub);
+                a.add(i);
+                tmp.add(a);
+            }
+            //output value add all subset inside temp
+            output.addAll(tmp);
+        }
+        return output;
+    }
+}

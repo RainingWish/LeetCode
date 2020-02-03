@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        //initial the List<List<String>>
+        List<List<String>>[] ans = new List[s.length()+1];
+        ans[0] = new ArrayList<List<String>>();
+        ans[0].add(new ArrayList<String>());
+        
+        //pair is to mark the range of the substring is Pal
+        //if pair[i][j] is true, them all substring from i and j are Pal
+        boolean[][] pair = new boolean[s.length()][s.length()];
+        
+        for(int i = 0; i<s.length(); i++){
+            ans[i+1] = new ArrayList<List<String>>();
+            for(int j = 0; j<=i;j++){
+                //check Pal
+                if(s.charAt(j)==s.charAt(i) && (i-j<=1||pair[j+1][i-1])){
+                    pair[j][i] = true;
+                    String str = s.substring(j,i+1);
+                    //store from beginning until current index i
+                    //all possible Pals inside ans[i+1]
+                    for(List<String> l : ans[j]){
+                        List<String> ls = new ArrayList<String>(l);
+                        ls.add(str);
+                        ans[i+1].add(ls);
+                    }
+                }
+            }
+        }
+        return ans[s.length()];
+    }
+}

@@ -1,0 +1,23 @@
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        
+        //use DP solve this problem
+        boolean[] dp = new boolean[s.length() + 1];
+        
+        dp[0] = true;
+        
+        for(int i=1; i<=s.length();i++){
+            for(int j=0; j<i; j++){
+                //check s.substring(j to i) appear in dictionary
+                //check dp[j] is true (before j substring are apear in word dictionary)
+                if(dp[j]&&wordDict.contains(s.substring(j,i))){
+                    dp[i]=true;
+                    break;
+                }
+            }
+        }
+        //return the last checking value
+        return dp[s.length()];
+        
+    }
+}

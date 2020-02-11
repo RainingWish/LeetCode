@@ -1,0 +1,35 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        //max total operation steps = tokens.length +1
+        int[] ls = new int[tokens.length/2+1];
+        int index = 0;
+        for (String token : tokens) {
+            switch (token) {
+                //+-*/operations
+                //index-1
+                case "+":
+                    ls[index - 2] = ls[index - 2] + ls[index - 1];
+                    index--;
+                    break;
+                case "-":
+                    ls[index - 2] = ls[index - 2] - ls[index - 1];
+                    index--;
+                    break;
+                case "*":
+                    ls[index - 2] = ls[index - 2] * ls[index - 1];
+                    index--;
+                    break;
+                case "/":
+                    ls[index - 2] = ls[index - 2] / ls[index - 1];
+                    index--;
+                    break;
+                //save value inside index and index+1
+                default:
+                    ls[index++] = Integer.parseInt(token);
+                    break;
+            }
+        }
+        //return the index 0 will be the final answer
+        return ls[0];
+    }
+}

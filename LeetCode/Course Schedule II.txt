@@ -1,0 +1,46 @@
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<Integer> order = new ArrayList();
+        int coursesTaken = 0;
+
+        //holds the number of edges going into a vertex:
+        int[] inDegree = new int[numCourses];
+        
+        //for every course that has a preReq, increment its value in inDegree
+        for(int i = 0; i < prerequisites.length; i++) {
+            inDegree[prerequisites[i][0]]++;
+        }
+        
+        //put every course without preReq onto a stack:
+        Stack<Integer> stack = new Stack();
+        for (int i = 0; i < inDegree.length; i++) {
+            if(inDegree[i] == 0) {
+                stack.push(i);   
+            }
+        }
+        
+        //pop values off the stack, and the order of the items should be topologically sorted
+        while(!stack.isEmpty()) {
+            int curr = stack.pop();
+            coursesTaken++;
+            order.add(curr);
+            
+            for (int i = 0; i < prerequisites.length; i++) {
+                
+                //if the curr one popped is a preReq, update the inDegrees of its corresponding parent:
+                if (curr == prerequisites[i][1]) {
+                    inDegree[prerequisites[i][0]]--;
+                    
+                    //check if the given course has no preReqs left, then add to stack
+                    if (inDegree[prerequisites[i][0]] == 0) {
+                        stack.push(prerequisites[i][0]);
+                    }
+                }
+            }
+        } 
+        //if all courses can be taken:
+        if (coursesTaken == numCourses ) {
+            return order.stream().mapToInt(i -> i).toArray();
+        } else return new int[0];
+    }
+}

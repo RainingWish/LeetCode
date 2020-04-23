@@ -1,0 +1,43 @@
+class Solution {
+
+    private int[] input;
+    private int[] answer;
+    
+    Random ran = new Random();
+    
+    //input, get nums[] then shallow copy to answer[] and deep copy to input[]
+    public Solution(int[] nums) {
+        answer = nums;
+        input = nums.clone();
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    public int[] reset() {
+        answer = input;
+        input = input.clone();
+        return input;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    public int[] shuffle() {
+        //keep swap array.length time to make it total random
+        for(int i = 0; i< answer.length;i++){
+            swapnum(i, randomRange(i, answer.length));
+        }
+        return answer;
+    }
+    
+    //swap index function
+    private void swapnum(int i, int j){
+        int temp = answer[i];
+        answer[i] = answer[j];
+        answer[j] = temp;
+    }
+    
+    //set the random minimum value
+    private int randomRange(int min, int max) {
+        //random in range max - current index
+        //then add current index
+        return ran.nextInt(max - min) + min;
+    }
+}

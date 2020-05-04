@@ -1,0 +1,27 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        //check 1
+        if(stones.length==1) return stones[0];
+        //sort array
+        Arrays.sort(stones);
+        //get largest 2 numbers
+        int x = stones.length-1;
+        int y = stones.length-2;
+        while(y>=0){
+            //same-> both 0; not same -> small to 0 large to left
+            if(stones[x]==stones[y]){
+                stones[x] = 0;
+                stones[y] = 0;
+            }else{
+                stones[x] -= stones[y];
+                stones[y] = 0;
+            }
+            //sort again
+            Arrays.sort(stones);
+            //looping until second large value is 0
+            if(stones[y] == 0) break;
+            }
+        //return the final largerst value
+        return stones[x];
+    }
+}

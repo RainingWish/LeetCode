@@ -1,0 +1,31 @@
+class Solution {
+    
+    private String getString(String str) {
+        int n=str.length();
+        int count=0;
+        String result="";
+        //back to forward loop
+        for(int i=n-1; i>=0; i--) {
+            //get current char
+            char ch=str.charAt(i);
+            //if it is backspace add in to counter
+            if(ch=='#') 
+                count++;
+            else {
+                //check is there was a backspace
+                if(count>0)
+                    //skip current char
+                    count--;
+                else {
+                    //add current char to resule
+                    result+=ch;
+                }                     
+            }
+        }
+        return result;
+    }
+    
+    public boolean backspaceCompare(String S, String T) {
+        return getString(S).equals(getString(T));
+    }
+}

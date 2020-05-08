@@ -1,0 +1,30 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        //create 2 array, one is left one is right
+        int[] L = new int[nums.length];
+        int[] R = new int[nums.length];
+        //anser array
+        int[] ans = new int[nums.length];
+        
+        //filling in left to right array
+        L[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            //current  = nums[prev] * Left[prev]
+            L[i] = nums[i - 1] * L[i - 1];
+        }
+        
+        //filling in right to left array
+        R[nums.length-1] = 1;
+        for (int i = nums.length-2; i >= 0; i--) {
+            //current  = nums[prev] * right[prev]
+            R[i] = nums[i + 1] * R[i + 1];
+        }
+        
+        //mutipulx L[i] and R[i] will be answer
+        for (int i=0; i < nums.length; i++){
+            ans[i] = L[i]*R[i];
+        }
+        
+        return ans;
+    }
+}

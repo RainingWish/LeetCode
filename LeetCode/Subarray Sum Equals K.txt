@@ -1,0 +1,26 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        //use hashmap to find sum-k appear in hashmap or not
+        //initail sum and answer
+        int ans = 0;
+        int sum = 0;
+        //initail hashmap and first (0,1) value
+        HashMap <Integer, Integer> map = new HashMap<>();
+        map.put(0,1);
+        //loop num array
+        for(int i = 0; i< nums.length; i++){
+            //sum += current value
+            sum += nums[i];
+            //check sum-k appear in hashmap or not
+            if(map.containsKey(sum-k)){
+                //ans add how many time sum-k appear in hashmap
+                ans += map.get(sum-k);
+            }
+            //if current sum mapped in heashmap, then use old value
+            //if current sum not mapped in heashmap, then equals to 0
+            map.put(sum, map.getOrDefault(sum,0)+1);
+        }
+        //return answer
+        return ans;
+    }
+}

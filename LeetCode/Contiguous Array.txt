@@ -1,0 +1,38 @@
+class Solution {
+    public int findMaxLength(int[] nums) {
+        //use hashmap to save current sum
+        // '0' -> -1  and '1' -> 1 in hashmap
+        //find the sub array which sum = 0
+        //output the max sub array
+        
+        //null check
+        if(nums.length==0) return 0;
+        
+        //initail hashmap and initail value
+        Map<Integer,Integer> map = new HashMap<>();
+        //sum = 0, index = -1
+        map.put(0,-1);
+        //initail variable
+        int ans = 0;
+        int sum = 0;
+        //loop nums array one time
+        for(int i = 0; i< nums.length; i++){
+            //check 1, and let sum + or - 1;
+            if(nums[i]==1){
+                sum+=1;
+            }else{
+                sum-=1;
+            }
+            //use constainsKey check current sum apear in hasmap or not
+            if(map.containsKey(sum)){
+                //if apear, check current max length and prev max length
+                ans = Math.max(ans, i-map.get(sum));
+            }else{
+                //if not record current sum and index
+                map.put(sum, i);
+            }
+        }
+        //return final max length
+        return ans;
+    }
+}

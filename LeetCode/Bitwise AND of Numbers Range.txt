@@ -1,0 +1,9 @@
+class Solution {
+    public int rangeBitwiseAnd(int m, int n) {
+        //Bitwise-AND of any two numbers will always produce a number
+        //less than or equal to the smaller number
+        while(n>m)
+           n = n & n-1;
+        return n;
+    }
+}

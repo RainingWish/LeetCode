@@ -1,0 +1,25 @@
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        //dp
+        //null check
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
+        //initail dp array
+        int[][] dp = new int[matrix.length+1][matrix[0].length+1];
+        //initail answer and prev
+        int ans = 0;
+        //loop hole matrix
+        for(int i=1; i<=matrix.length; i++){
+            for (int j=1; j<=matrix[0].length;j++){
+                //check current matrix is 1
+                if(matrix[i-1][j-1]=='1'){
+                    //new dp [j] = min (prev, dp[j-1], dp[i-1])
+                    dp[i][j] = Math.min(Math.min(dp[i-1][j-1],dp[i-1][j]),dp[i][j-1]) + 1;
+                    //ans = max (new dp[j], prev ans) 
+                    ans=Math.max(ans,dp[i][j]);
+                }
+            }
+        }
+        //due to it is suqare, so return ans^2
+        return ans*ans;
+    }
+}

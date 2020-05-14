@@ -1,0 +1,32 @@
+class Solution {
+    public boolean checkValidString(String s) {
+	//possable ( > )
+	//current ) must have prev possable ( to delete
+        // lo and hi respective be the smallest and largest possible number of open left brackets
+        //after provessing the current character in the string
+        int lo = 0;
+        int hi = 0;
+        //loop all character inside string
+        for(char i: s.toCharArray()){
+            //if i == '(' then lo++, ow we could write a right bracket
+            if(i=='('){
+                lo++;
+            }else{
+                lo--;
+            }
+            //if i !=')' then hi++, ow we must write a right bracket then hi--
+            if(i!=')'){
+                hi++;
+            }else{
+                hi--;
+            }
+            //if hi<0 then break, ) > possable (
+            if(hi<0) break;
+            //lo should be >= 0
+            lo=Math.max(lo,0);
+        }
+        //if lo == 0 means vaild
+        return lo == 0; 
+        
+    }
+}

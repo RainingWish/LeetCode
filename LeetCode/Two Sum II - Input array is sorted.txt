@@ -1,0 +1,26 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        //setup left and right
+        int left = 0;
+        int right = numbers.length - 1;
+        //loop all value inside numbers array
+        while(left != right){
+            //if left + right > target
+            //pick a smaller value
+            if(numbers[left] + numbers[right] > target){
+                right--;
+            //if left + right < target
+            //pick a larger value
+            } else if(numbers[left] + numbers[right] < target){
+                left++;
+            //if left + right == target
+            //return current left and right
+            } else{
+                return new int[] {left + 1, right + 1};
+            }
+        }
+        //after looping not find any sum == target
+        //return null
+        return null;
+    }
+}

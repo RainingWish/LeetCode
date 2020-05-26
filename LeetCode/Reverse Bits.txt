@@ -1,22 +1,12 @@
 public class Solution {
     // you need treat n as an unsigned value
     public int reverseBits(int n) {
-        String inp="";
-       for(int i=32;i>0;i--){
-            if(n>Math.pow(2,i-1)){
-                inp+="1";
-                n-=Math.pow(2,i-1);
-           }
-            inp+="0";
-       }
-        
-        int ans = 0;
-        for (int j = 32; j>16;j--){
-            if(inp.charAt(j-1) == '1') ans +=Math.pow(2,j-1);
-            if(inp.charAt(32-j) == '1') ans +=Math.pow(2,32-j);
+        int res=0;
+        for(int i=0;i<32;i++){
+            //res left shift 1 bit and add n & 1 to current bit
+    	    res= ( res << 1 ) | ( n & 1 );         
+    	    n = n >> 1;                  
         }
-    
-        return ans;
-        
+        return res; 
     }
 }

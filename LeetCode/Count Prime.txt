@@ -1,24 +1,34 @@
 class Solution {
-    
-    private static boolean isPrime(int a){
-        
-        if (a <= 1) return false;
-        
-        for(int i = a/2; i>1; i--){
-            if(a%i==0){
-                return false;
+    public int countPrimes(int n) {
+        // if n < 3 there will be no prime number
+        if (n < 3) return 0;
+        //create a array default are false, if current not prime will change tp true
+        boolean[] f = new boolean[n];
+        // count =  max prime numbers
+        // we save all odd number delete all even number
+        int count = n / 2;
+        //here we need to delete all multiple of odd number 
+        for (int i = 3; i * i < n; i += 2) {
+            //is f[i] == true then it is not prime
+            if (f[i])
+                continue;
+            //here we will delete all i's nultipled number
+            //ie: if here is 3, then we will change 6,9,12,15...to not prime
+            //why j+=2*i ?
+            //we first skip even number
+            //so we only need to care about 3*3,3*5,3*7....
+            //in this case we plug in i
+            //i*i,i*(i+2),i*(i+4)
+            for (int j = i * i; j < n; j += 2 * i) {
+                if (!f[j]) {
+                    //here count-1
+                    count--;
+                    //then change f[j] to true then can skip in future
+                    f[j] = true;
             }
         }
-        return true;
     }
-    
-    public int countPrimes(int n) {
-        
-        int count = 0;
-        
-        for(int i=1;i<n;i++){
-            if(isPrime(i)==true) count+=1;
-        }
-        return count;
+    //final return answer
+    return count;
     }
 }

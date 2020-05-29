@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        // check null
+        if(root == null) return 0;
+        //initial ans
+        int ans = 0;
+        //check left child not null
+        if(root.left != null) {
+            //check left child is the ned of the node
+            if(root.left.left == null && root.left.right == null){
+                //add it
+                ans += root.left.val;
+            }else{
+                //recursive, check current left child's child
+                ans += sumOfLeftLeaves(root.left);
+            }
+        }
+        //use recursive check root have any right child have any left child child
+        ans += sumOfLeftLeaves(root.right);
+        //finish all check and adding return ans
+        return ans;
+    }
+}

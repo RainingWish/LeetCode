@@ -1,0 +1,27 @@
+class Solution {
+    //recurtion-backtrack
+    //create list string
+    int limit;
+    List<String> ans;
+    public List<String> generateParenthesis(int n) {
+        limit = n;
+        ans = new ArrayList<String>();
+        backtrack("(", 1, 0);
+        return ans;
+    }
+
+    public void backtrack(String s, int l, int r){
+    
+        if(l>limit || r>limit || r>l ||s.length()>2*limit){
+            return;
+        }
+    
+        if(s.length()==2*limit){
+            ans.add(s);
+            return;
+        }   
+    
+        backtrack(s+"(", l+1, r);
+        backtrack(s+")", l, r+1);
+    }
+}

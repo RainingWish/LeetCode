@@ -1,0 +1,52 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        //use queue
+        //create ans listlist
+        List<List<Integer>> ans = new ArrayList<>();
+        //null check
+        if (root == null) return ans;
+        //create queue and add root to queue
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        //the number of level
+        int level = 0;
+        //loop until queue been empty
+        while(!q.isEmpty()){
+            //create a arraylist save current level value
+            List<Integer> list = new ArrayList<>();
+            //get current level have how many value
+            int size = q.size();
+            //loop for current level
+            for(int i=0; i<size;i++){
+                //pop current node out
+                TreeNode node = q.poll();
+                //add to level
+                list.add(node.val);
+                //check left and right then add back to queue
+                if (node.left != null) q.add(node.left);
+                if (node.right != null) q.add(node.right);
+            }
+            //reverse data for odd level
+            if(level % 2 == 1) Collections.reverse(list);
+            //add current level to ans
+            ans.add(list);
+            level++;
+        }
+        return ans;
+    }
+}

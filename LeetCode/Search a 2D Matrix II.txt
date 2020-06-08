@@ -1,0 +1,24 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        //null check
+        if(matrix == null || matrix.length < 1 || matrix[0].length <1) return false;
+        //initail row and col
+        //start with largest number in first row
+        int col = matrix[0].length-1;
+        int row = 0;
+        while(col >= 0 && row <= matrix.length-1) {
+            //check euqal
+            if(target == matrix[row][col]) {
+                return true;
+            // if target smaller than curren col - 1 to find smaller value
+            } else if(target < matrix[row][col]) {
+                col--;
+            //if target larger than current row + 1 to find larger value
+            } else if(target > matrix[row][col]) {
+                row++;
+            }
+        }
+        return false;
+        
+    }
+}

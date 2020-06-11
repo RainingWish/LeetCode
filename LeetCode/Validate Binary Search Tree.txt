@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private boolean recursion(TreeNode root, Integer low, Integer high){
+        //null check
+        if (root == null) return true;
+        
+        int value = root.val;
+        //current value less than low
+        if(low != null && value <= low) return false;
+        //current value greater than high
+        if(high != null && value >= high) return false;
+        
+        //call same function for child node
+        //for left child current value is highest
+        //for right child current value is lowest
+        if (! recursion(root.right, value, high)) return false;
+        if (! recursion(root.left, low, value)) return false;
+        return true;
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+        //recursion
+        //check left and right child BST or not
+        return recursion(root,null,null);
+    }
+}

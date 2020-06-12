@@ -1,0 +1,33 @@
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        //change to long to avoid overflow
+	    long numeratorl=numerator, denominatorl=denominator;
+	    StringBuffer buffer=new StringBuffer();
+	    //handle negetives 
+	    if(numeratorl<0&&denominatorl>0) buffer.append('-');
+	        else if(numeratorl>0&&denominatorl<0) buffer.append('-');
+	    numeratorl=Math.abs(numeratorl);
+        denominatorl=Math.abs(denominatorl);
+	    //map,key:  numerator ,because denominator never changes;value:position of numerator/denominator 
+	    HashMap<Long, Integer>map=new HashMap<>();
+	    //handle integer part
+	    long res=numeratorl/denominatorl;
+	    numeratorl=(numeratorl%denominatorl)*10;
+		buffer.append(res);
+		if(numeratorl!=0)buffer.append('.');
+		//handle flaot part
+		while(numeratorl != 0){
+			res=numeratorl/denominatorl;
+			if(map.get(numeratorl)!=null){
+				//handle repaeting part
+				buffer.insert(map.get(numeratorl).intValue(), '(');
+				buffer.append(')');
+				break;
+			}
+			map.put(numeratorl, buffer.length());
+			numeratorl=(numeratorl%denominatorl)*10;
+		    buffer.append(res);
+		}
+	    return buffer.toString();
+    }
+}

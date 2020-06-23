@@ -1,0 +1,11 @@
+class Solution {
+    public int xorOperation(int n, int start) {
+        //initial variable
+        int ans = start;
+        //start looping
+        for (int i = 1; i < n; i++){
+            ans ^= (start+2*i);
+        }
+        return ans;
+    }
+}

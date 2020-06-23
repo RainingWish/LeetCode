@@ -1,0 +1,14 @@
+class Solution {
+    public String toLowerCase(String str) {
+        //assume not use tolowercase function
+        //Create a string builder
+        StringBuilder ans = new StringBuilder();
+        //the difference between the lower case and upper case ascii value is 32
+        //change to lower case use bitwise or with 32
+        for(int i = 0; i < str.length(); i++){
+            char curr = (char)(str.charAt(i) | (char)(32));
+            ans.append(curr);
+        }
+        return ans.toString();
+    }
+}

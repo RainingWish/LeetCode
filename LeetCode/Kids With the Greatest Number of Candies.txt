@@ -1,0 +1,21 @@
+class Solution {
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        //initail varibles
+        List<Boolean> ans = new ArrayList<>();
+        //find max index in candies
+        int max = -1;
+        //Arrays.stream(candies).max().getAsInt();
+        for(int i = 0; i < candies.length; i++){
+            max = Math.max(candies[i],max);
+        }
+        //compare current index+extra value
+        for (int i = 0; i < candies.length; i++){
+            if(candies[i] + extraCandies >= max) {
+                ans.add(Boolean.TRUE);
+            }else{
+                ans.add(Boolean.FALSE);    
+            }
+        }
+        return ans;
+    }
+}

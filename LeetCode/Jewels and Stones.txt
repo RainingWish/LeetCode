@@ -1,0 +1,26 @@
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        //prepare a int for result
+        int result = 0;
+    
+        //check extreme condition
+        if(J.length() == 0 || S.length() == 0) return result;
+    
+        //Create a HashSet for J
+        char[] charJ = J.toCharArray();
+        HashSet<Character> set = new HashSet<> ();
+        for(int i = 0; i < J.length(); i++){
+            set.add(charJ[i]);
+        }
+    
+        //check for string s
+        char[] charS = S.toCharArray();
+        for(int i = 0; i < S.length(); i++){
+            if(set.contains(charS[i])){
+                result += 1;
+            }
+        }
+    
+        return result;
+    }
+}

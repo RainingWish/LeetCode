@@ -1,0 +1,25 @@
+class Solution {
+    public int balancedStringSplit(String s) {
+        char[] sA = s.toCharArray();  // convert String to char array.
+        
+        int rez = 0;
+        int r = 0;
+        int l = 0;
+        
+        for (char c : sA) { // go for each char in array
+            // check if char is 'R' or 'L' if so increase the corespoding counter 
+            if (c == 'R') r++;
+            else if (c == 'L') l++;
+            
+            // check if counter is not empty and they are equals
+            if (r > 0 && r == l) { 
+                 // increase rez counter and set r\l counter to 0.    
+                rez++;
+                r = 0;
+                l = 0;
+			}
+		}
+        
+        return rez;
+    }
+}

@@ -1,0 +1,24 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        //place in spot
+        //null check
+        if(nums.length == 0) return 1;
+        //create array
+        int[] array = new int[nums.length];
+        //make array all -1
+        for(int i = 0; i < nums.length; i++){
+            array[i] = -1;
+        }
+        //check nums array
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] <= 0 || nums[i] > nums.length) continue;
+            array[nums[i]-1] = nums[i];
+        }
+        //find first -1
+        for(int i = 0; i < nums.length; i++){
+            if(array[i] == -1) return i+1;
+            if(i == nums.length-1) return i+2;
+        }
+        return 2;
+    }
+}

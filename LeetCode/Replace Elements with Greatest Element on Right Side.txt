@@ -1,0 +1,14 @@
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        //start at the end of the array!
+        //O(n) time
+        int last;
+        int max = -1;
+        for (int i = arr.length-1; i >= 0; i--){
+            last = arr[i];
+            arr[i] = max;
+            max = (last > max) ? last : max;
+        }
+        return arr;
+    }
+}

@@ -1,0 +1,19 @@
+class Solution {
+    public int[][] flipAndInvertImage(int[][] A) {
+        //O(n^2) no extra space
+        for(int i = 0; i < A.length; i++ ){
+            for (int j = 0; j < (A[0].length + 1)/2; j++){
+                //check odd middle
+                if (A.length % 2 == 1 && j == (A.length/2)){
+                    A[i][j] = (A[i][j] == 0) ? 1 : 0;
+                    continue;
+                }
+                //swap and invert
+                int index = A[i][j];
+                A[i][j] = (A[i][A.length - j - 1] ==  0) ? 1 : 0;
+                A[i][A.length - j - 1] = (index ==  0) ? 1 : 0;
+            }
+        }
+        return A;
+    }
+}

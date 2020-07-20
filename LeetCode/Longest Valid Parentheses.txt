@@ -1,0 +1,23 @@
+class Solution {
+    public int longestValidParentheses(String s) {
+        //use stack to remumber all ( index
+        int maxans = 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                //if there is a ) unless it is first char, mean the is a matching
+                stack.pop();
+                if (stack.empty()) {
+                    stack.push(i);
+                } else {
+                    //if last match is not continue anymore, compare current max to max
+                    maxans = Math.max(maxans, i - stack.peek());
+                }
+            }
+        }
+        return maxans;
+    }
+}

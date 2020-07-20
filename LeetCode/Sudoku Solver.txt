@@ -1,0 +1,58 @@
+class Solution {
+    private boolean validCheck(int row, int col, char[][] board, char cur){
+        // check row
+        for(int i=0; i<9; i++){
+            if(board[row][i] == cur) return false;
+        }
+        
+        //check col
+        for(int i=0; i<9; i++){
+            if(board[i][col] == cur) return false;
+        }
+        
+        //check 3*3
+        int start_row = row / 3 * 3;
+        int start_col = col / 3 * 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[start_row + i][start_col + j] == cur) return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean recursion(char[][] board){
+        //loop every space
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                //check is it empty?
+                if (board[i][j] == '.') {
+                    //try 1-9 one by one
+                    char count = '1';
+                    while (count <= '9') {
+                        //check is this number valid
+                        if (validCheck(i, j, board, count)) {
+                            board[i][j] = count;
+                            //if yes, try to fill next space
+                            if (recursion(board)) {
+                                return true;
+                            } else {
+                                board[i][j] = '.';
+                            }
+                        }
+                        count++;
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+    public void solveSudoku(char[][] board) {
+        recursion(board);
+    }
+    
+    
+}

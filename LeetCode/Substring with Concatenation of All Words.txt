@@ -1,0 +1,45 @@
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        //one hashmap need save all char in words
+        //other one hashmap current save words.length char in s
+        //if current match need, ans save the index
+        //if not current pop tail and add next char in s
+        //loop till the end
+        
+        //create array list save answer
+        List<Integer> ans = new ArrayList<Integer>();
+        //words null check
+        int wordNum = words.length;
+        if (wordNum == 0) return ans;
+        //create hashmap need to save all words
+        HashMap<String, Integer> need = new HashMap<String, Integer>();
+        for (String word: words){
+            int value = need.getOrDefault(word,0);
+            need.put(word, value+1);
+        }
+        //check all s char
+        int wordLength = wordNum * words[0].length();
+        for(int i = 0; i < s.length() - wordLength + 1; i++){
+            //create hashmap current
+            HashMap<String, Integer> current = new HashMap<String, Integer>();
+            int index = 0;
+            while (index < wordNum){
+                //get current char in word
+                String word = s.substring(i + index * words[0].length(), i + (index + 1) * words[0].length());
+                //check word in need or not
+                if(need.containsKey(word)){
+                    int value = current.getOrDefault(word,0);
+                    current.put(word, value+1);
+                    //check word value and need word value
+                    if(current.get(word) > need.get(word)) break;
+                }else{
+                    break;
+                }
+                index++;
+            }
+            //check all word match need or not
+            if (index == wordNum) ans.add(i);
+        }
+        return ans;
+    }
+}

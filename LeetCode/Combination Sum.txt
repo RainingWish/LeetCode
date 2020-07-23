@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] can, int target) {
+        //dp
+        //sort candidates 
+        Arrays.sort(can); 
+        List<List<List<Integer>>> dp = new ArrayList<>();
+         //run through all targets from 1 to target
+        for (int i = 1; i <= target; i++) {
+            // combs for curr i
+            List<List<Integer>> newList = new ArrayList(); 
+            // run through all candidates <= i
+            for (int j = 0; j < can.length && can[j] <= i; j++) {
+                // special case when curr target is equal to curr candidate
+                if (i == can[j]) newList.add(Arrays.asList(can[j]));
+                // if current candidate is less than the target use prev results
+                else for (List<Integer> l : dp.get(i-can[j]-1)) {
+                    if (can[j] <= l.get(0)) {
+                        List current = new ArrayList<>();
+                        current.add(can[j]); 
+                        current.addAll(l);
+                        newList.add(current);
+                    }
+                }
+            }
+            dp.add(newList);
+        }
+        return dp.get(target-1);
+    }
+}

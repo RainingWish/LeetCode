@@ -1,0 +1,39 @@
+class Solution {
+    public String multiply(String num1, String num2) {
+        //https://leetcode.wang/leetCode-43-Multiply-Strings.html
+        //base idea, multiple all number seperatelly and then add them togeter
+        //due to answer cannot exist num1.length + num2.length
+        //we can create a array save answer first 
+        //then change to string use StringBuilder
+        
+        //0 check
+        if(num1.equals("0")||num2.equals("0")) return "0";
+        
+        //initail index
+        int l1 = num1.length();
+        int l2 = num2.length();
+        int[] ans = new int[l1 + l2];
+        
+        //loop all char in num1,num2 let them multiple
+        for(int i = l1 -1; i >= 0; i--){
+            for(int j = l2 - 1; j >= 0; j--){
+                //multiple
+                int cur = (num1.charAt(i)-'0')*(num2.charAt(j)-'0');
+                //add orgiginal answer
+                cur += ans[i+j+1];
+                //update ans[i+j] and ans[i+j+1]
+                ans[i+j] += cur/10;
+                ans[i+j+1] = cur%10;
+            }
+        }
+        
+        //change array ans to string use string builder
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < ans.length; i++){
+            //check i = 0 is 0 or not
+            if(i == 0 && ans[i] == 0) continue;
+            stringBuilder.append(ans[i]);
+        }
+        return stringBuilder.toString();
+    }
+}

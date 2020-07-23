@@ -1,0 +1,46 @@
+class Solution {
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    private void reverse(int[] nums, int i){
+        int j = nums.length - 1;
+        while (i<j){
+            swap(nums,i,j);
+            i++;
+            j--;
+        }
+    }
+    
+    public void nextPermutation(int[] nums) {
+        //1.from right to left find first decrease number curr
+        //2.from curr back to right find bigger = current + 1
+        //3.swap current and bigger
+        //4.reverse current + 1 index to the end
+        
+        //null check
+        if(nums.length>=2){
+            //find first decrease
+            int current = nums.length - 2;
+            while(current>=0 && nums[current]>=nums[current+1]){
+                current--;
+            }
+            //if current<0 mean we just reverse all nums
+            if(current<0){
+                reverse(nums,0);
+                return;
+            }
+            //find nums[current] + 1 value index
+            int bigger = nums.length - 1;
+            while(bigger>=0 && nums[bigger] <= nums[current]){
+                bigger--;
+            }
+            //swap current and bigger
+            swap(nums, current, bigger);
+            //reverse current + 1 and follow indexs from nums
+            reverse(nums, current + 1);
+        }
+    }
+}

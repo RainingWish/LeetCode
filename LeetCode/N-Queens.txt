@@ -1,0 +1,60 @@
+class Solution {
+    //back tracking
+    //place first queen in first spot, 
+    //place second queen in next line avaibale spot, .... so on,
+    //until cannot place the next one, back to line - 1 and move the prev queen to other avaliable spot
+    //using Boolean[], hashset and solve in DFS seems quicker and less memory use
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans = new ArrayList<>();
+        backtrack(new ArrayList<Integer>(), ans, n);
+        return ans;
+    }
+    
+    private void backtrack( List<Integer> current, List<List<String>> ans, int n){
+        //check if current queen equal to n, add the result to ans
+        if(current.size()==n){
+            List<String> temp = new ArrayList<>();
+            for(int i = 0; i < n; i++){
+                char[] t = new char[n];
+                Arrays.fill(t,'.');
+                t[current.get(i)]='Q';
+                temp.add(new String(t));
+            }
+            ans.add(temp);
+            return;
+        }
+        //test every col
+        for(int col = 0; col < n; col++){
+            //check current col avaliablity
+            if(!current.contains(col)){
+                //check diagonal
+                if(checkDiagonal(current, col)){
+                    continue;
+                }
+                //add current col queen
+                current.add(col);
+                //back track
+                backtrack(current, ans, n);
+                //remove current col queen and then check next col
+                //This line only activated in two situation
+                //1.future line doesn't work
+                //2.already get the first ans
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+    
+    private boolean checkDiagonal(List<Integer> current, int i){
+        int row = current.size();
+        int col = i;
+        //check every row queen's avaliablity
+        for(int j = 0; j < current.size(); j++){
+            //if there any other queen on diagonal return true 
+            //then skip current loop in back tracking function
+            if(Math.abs(row - j) == Math.abs(col-current.get(j))){
+                return true;
+            }
+        }
+        return false;
+    }
+}

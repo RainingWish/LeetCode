@@ -1,0 +1,40 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ansList = new ArrayList<>();
+        
+        //null check
+        if(candidates == null || candidates.length == 0) {
+            return ans;
+        }
+        
+        //sort candidates array
+        Arrays.sort(candidates);
+        
+        //recursion
+        recursion(candidates, target, ans, ansList, 0);
+        
+        return ans;
+    }
+    
+    public void recursion(int[]candidates, int target, List<List<Integer>> ans, List<Integer> ansList, int index){
+        //check target 
+        if(target == 0){
+            ans.add(new ArrayList(ansList));
+            return;
+        }
+        
+        //loop through candidates array
+        for(int i = index; i < candidates.length; i++){
+            //check target greater than 0 or not
+            if(target < 0 ){
+                return;
+            }
+            ansList.add(candidates[i]);
+            recursion(candidates, target - candidates[i], ans, ansList, i);
+            //remove the last index in ansList
+            ansList.remove(ansList.size() - 1);
+        }
+    }
+}
